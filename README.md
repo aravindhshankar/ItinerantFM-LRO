@@ -85,11 +85,31 @@ in the development repository.
 
 ## Data
 
-`data/` is not tracked in git. It is available on Zenodo as tar archives of the complete `data/Hubbard/` (finite DMRG) and
-`data/iDMRG/` (iDMRG) directories; For the code to run, they need to be restored as `data/Hubbard` and `data/iDMRG`. The archives
-also contain additional data (exploratory runs not used in the paper). Only the paths listed below are read by the code
-and the figure notebooks.
-The DOI for the Zenodo repository is : 10.5281/zenodo.23208777
+`data/` is not tracked in git. It is available on Zenodo (DOI: 10.5281/zenodo.23208777) as tar archives that together
+contain the complete `data/iDMRG/` (iDMRG) and `data/Hubbard/` (finite DMRG) directories, including additional data
+(exploratory runs not used in the paper). For the code to run, they need to be restored as `data/iDMRG` and `data/Hubbard`.
+`data/Hubbard/` is split into six archives, each storing its paths as `Hubbard/...`:
+
+| Archive | Contents (under `data/Hubbard/`) | Needed for the figures |
+|---|---|---|
+| `Hubbard_1a_paper.tar` | `N256consNf/` | yes |
+| `Hubbard_1b_paper.tar` | `N64consNf/`, `N128consNf/`, `corrs/` | yes |
+| `Hubbard_2_ImpPrec_a.tar` | `ImpPrec/N128consNf/`, `ImpPrec/N256consNf/` (Vpm 4.450, 4.600), `corrs_imp/` | no |
+| `Hubbard_3_ImpPrec_b.tar` | `ImpPrec/N256consNf/` (remaining Vpm values) | no |
+| `Hubbard_4_N16consNf.tar` | `N16consNf/` | no |
+| `Hubbard_5_other.tar` | `N16/`, `N16_Np7/`, `N16_Np8/`, `N16_Np9/`, `N32/`, `N64/`, `N200consNf/`, `moments/`, `tmp_corrs_legacy/`, and the empty `N512consNf/`, `tebd/` | no |
+
+`iDMRG.tar` contains all of `data/iDMRG/`. To reproduce the figures, only `iDMRG.tar`, `Hubbard_1a_paper.tar` and
+`Hubbard_1b_paper.tar` are needed; extract the `Hubbard_*` archives inside `data/`:
+
+```
+cd data
+tar -xf Hubbard_1a_paper.tar
+tar -xf Hubbard_1b_paper.tar
+```
+
+Extracting all six `Hubbard_*.tar` archives in `data/` restores the complete `data/Hubbard/`. Only the paths listed
+below are read by the code and the figure notebooks.
 
 Required, finite DMRG:
 - `data/Hubbard/N64consNf/`, `data/Hubbard/N128consNf/`, `data/Hubbard/N256consNf/` (MPS; Vpm 4.000-4.750 is used)
@@ -102,4 +122,4 @@ Required, iDMRG (MPS and `corrs/results.h5`):
 - `data/iDMRG/Vpm4.350cc/`, `data/iDMRG/Vpm3.8cc/`
 
 Not used by any figure: `data/Hubbard/ImpPrec/`, `data/Hubbard/corrs_imp/` (output of `HubbardImprovePrecision.jl`;
-present in the Zenodo archive).
+in `Hubbard_2_ImpPrec_a.tar` and `Hubbard_3_ImpPrec_b.tar`).
